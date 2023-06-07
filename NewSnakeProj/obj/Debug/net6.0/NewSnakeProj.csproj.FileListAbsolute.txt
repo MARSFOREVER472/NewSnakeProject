@@ -1,0 +1,15 @@
+C:\Users\mars_\source\Repos\NewSnakeProject\NewSnakeProj\bin\Debug\net6.0\NewSnakeProj.exe
+C:\Users\mars_\source\Repos\NewSnakeProject\NewSnakeProj\bin\Debug\net6.0\NewSnakeProj.deps.json
+C:\Users\mars_\source\Repos\NewSnakeProject\NewSnakeProj\bin\Debug\net6.0\NewSnakeProj.runtimeconfig.json
+C:\Users\mars_\source\Repos\NewSnakeProject\NewSnakeProj\bin\Debug\net6.0\NewSnakeProj.dll
+C:\Users\mars_\source\Repos\NewSnakeProject\NewSnakeProj\bin\Debug\net6.0\NewSnakeProj.pdb
+C:\Users\mars_\source\Repos\NewSnakeProject\NewSnakeProj\obj\Debug\net6.0\NewSnakeProj.csproj.AssemblyReference.cache
+C:\Users\mars_\source\Repos\NewSnakeProject\NewSnakeProj\obj\Debug\net6.0\NewSnakeProj.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mars_\source\Repos\NewSnakeProject\NewSnakeProj\obj\Debug\net6.0\NewSnakeProj.AssemblyInfoInputs.cache
+C:\Users\mars_\source\Repos\NewSnakeProject\NewSnakeProj\obj\Debug\net6.0\NewSnakeProj.AssemblyInfo.cs
+C:\Users\mars_\source\Repos\NewSnakeProject\NewSnakeProj\obj\Debug\net6.0\NewSnakeProj.csproj.CoreCompileInputs.cache
+C:\Users\mars_\source\Repos\NewSnakeProject\NewSnakeProj\obj\Debug\net6.0\NewSnakeProj.dll
+C:\Users\mars_\source\Repos\NewSnakeProject\NewSnakeProj\obj\Debug\net6.0\refint\NewSnakeProj.dll
+C:\Users\mars_\source\Repos\NewSnakeProject\NewSnakeProj\obj\Debug\net6.0\NewSnakeProj.pdb
+C:\Users\mars_\source\Repos\NewSnakeProject\NewSnakeProj\obj\Debug\net6.0\NewSnakeProj.genruntimeconfig.cache
+C:\Users\mars_\source\Repos\NewSnakeProject\NewSnakeProj\obj\Debug\net6.0\ref\NewSnakeProj.dll
