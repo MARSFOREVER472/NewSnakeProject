@@ -33,7 +33,7 @@ namespace NewSnakeProj
         {
             Console.SetWindowSize(Width, Height); // Dimensiones de la ventana de consola.
             Console.Title = Title; // Para el titulo de la consola.
-            Console.CursorVisible = false; // En el caso de que el cursor no sea visible en la consola.
+            Console.CursorVisible = true; // En el caso de que el cursor se visualice en la consola.
             Console.BackgroundColor = BackgroundColor; // Para personalizar el color de fondo de la consola.
             Console.Clear(); // Limpia toda la consola al ejecutarse.
         }
