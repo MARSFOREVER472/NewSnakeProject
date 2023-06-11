@@ -36,12 +36,28 @@ namespace NewSnakeProj
             _direccion = Direccion.Derecha; // Se mueve hacia la derecha.
         }
 
+        // Crearemos un nuevo método para que la serpiente tenga su cuerpo con sus partes.
+
+        public void IniciarCuerpo(int numPartes)
+        {
+            int x = Head.X - 1; // Crearemos la cola de la serpiente.
+            for (int i = 0; i < numPartes; i++) // Se cuenta la cantidad de partes del cuerpo de la serpiente.
+            {
+                Console.SetCursorPosition(x, Head.Y);
+                Console.Write("▓");// Alt 178
+                Body.Add(new Point(x, Head.Y));
+                x--;
+            }
+        }
+
         // Crearemos un nuevo método que permita mover la serpiente.
 
         public void Mover()
         {
             Teclado(); // Lectura de direcciones de la serpiente desde teclado.
+            Point posCabezaAnterior = Head; // Posicionaremos la cabeza inicial de la serpiente.
             MoverCabeza(); // Movimiento de la cabeza de la serpiente.
+            MoverCuerpo(posCabezaAnterior);
         }
 
         // Crearemos un nuevo método que permita mover la cabeza de la serpiente.
@@ -74,6 +90,22 @@ namespace NewSnakeProj
 
             Console.SetCursorPosition(Head.X, Head.Y);
             Console.Write("█"); // ALT+219
+        }
+
+        // Crearemos un nuevo método para que la serpiente pueda mover su cuerpo.
+
+        private void MoverCuerpo(Point posCabezaAnterior)
+        {
+            Console.ForegroundColor = BodyColor;
+            Console.SetCursorPosition(posCabezaAnterior.X, posCabezaAnterior.Y);
+            Console.Write("▓"); // Alt 178
+            Body.Insert(0, posCabezaAnterior);
+
+            // Ubicaremos el cursor mediante lista de arreglos.
+
+            Console.SetCursorPosition(Body[Body.Count - 1].X, Body[Body.Count - 1].Y);
+            Console.Write(" ");
+            Body.Remove(Body[Body.Count - 1]);
         }
 
         // Crearemos un método que permita mover a la serpiente mediante lectura desde teclado.
