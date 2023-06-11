@@ -66,7 +66,7 @@ namespace NewSnakeProj
         {
             Console.ForegroundColor = HeadColor; // Definimos el color de la cabeza.
             Console.SetCursorPosition(Head.X, Head.Y); // Ubicamos la posición donde se encuentra la cabeza de la serpiente.
-            Console.Write(" ");
+            Console.WriteLine(" ");
 
             // Definiremos las posiciones y un movimiento utilizando el algoritmo de switch con un case.
 
@@ -89,7 +89,7 @@ namespace NewSnakeProj
             // Definidos ya las posiciones moveremos la cabeza de la serpiente.
 
             Console.SetCursorPosition(Head.X, Head.Y);
-            Console.Write("█"); // ALT+219
+            Console.WriteLine("█"); // ALT+219 (para evitar los rastros que dejó la serpiente en la consola).
         }
 
         // Crearemos un nuevo método para que la serpiente pueda mover su cuerpo.
@@ -98,13 +98,13 @@ namespace NewSnakeProj
         {
             Console.ForegroundColor = BodyColor;
             Console.SetCursorPosition(posCabezaAnterior.X, posCabezaAnterior.Y);
-            Console.Write("▓"); // Alt 178
+            Console.WriteLine("▓"); // Alt 178 (para evitar los rastros que dejó la serpiente en la consola).
             Body.Insert(0, posCabezaAnterior);
 
             // Ubicaremos el cursor mediante lista de arreglos.
 
             Console.SetCursorPosition(Body[Body.Count - 1].X, Body[Body.Count - 1].Y);
-            Console.Write(" ");
+            Console.WriteLine(" "); // Para evitar los rastros que dejó la serpiente en la consola.
             Body.Remove(Body[Body.Count - 1]);
         }
 
@@ -118,13 +118,13 @@ namespace NewSnakeProj
 
                 // Verificaremos para cada condición las direcciones de la serpiente mediante lecturas desde teclado.
 
-                if (tecla.Key == ConsoleKey.RightArrow) // Si se presionó la tecla derecha.
+                if (tecla.Key == ConsoleKey.RightArrow && (_direccion != Direccion.Izquierda)) // Si se presionó la tecla derecha pero que no se puede girar a la izquierda.
                     _direccion = Direccion.Derecha;
-                if (tecla.Key == ConsoleKey.LeftArrow) // Si se presionó la tecla izquierda.
+                if (tecla.Key == ConsoleKey.LeftArrow && (_direccion != Direccion.Derecha)) // Si se presionó la tecla izquierda pero que no se puede girar a la derecha.
                     _direccion = Direccion.Izquierda;
-                if (tecla.Key == ConsoleKey.UpArrow) // Si se presionó la tecla de arriba.
+                if (tecla.Key == ConsoleKey.UpArrow && (_direccion != Direccion.Abajo)) // Si se presionó la tecla de arriba pero que no se puede girar desde abajo.
                     _direccion = Direccion.Arriba;
-                if (tecla.Key == ConsoleKey.DownArrow) // Si se presionó la tecla de abajo.
+                if (tecla.Key == ConsoleKey.DownArrow && (_direccion != Direccion.Arriba)) // Si se presionó la tecla de abajo pero que no se puede girar desde arriba.
                     _direccion = Direccion.Abajo;
             }
         }
