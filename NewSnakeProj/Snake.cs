@@ -40,7 +40,8 @@ namespace NewSnakeProj
 
         public void Mover()
         {
-            MoverCabeza();
+            Teclado(); // Lectura de direcciones de la serpiente desde teclado.
+            MoverCabeza(); // Movimiento de la cabeza de la serpiente.
         }
 
         // Crearemos un nuevo método que permita mover la cabeza de la serpiente.
@@ -73,6 +74,27 @@ namespace NewSnakeProj
 
             Console.SetCursorPosition(Head.X, Head.Y);
             Console.Write("█"); // ALT+219
+        }
+
+        // Crearemos un método que permita mover a la serpiente mediante lectura desde teclado.
+
+        private void Teclado()
+        {
+            if (Console.KeyAvailable) // Si se presionó la tecla o la reconoce manualmente.
+            {
+                ConsoleKeyInfo tecla = Console.ReadKey(true);
+
+                // Verificaremos para cada condición las direcciones de la serpiente mediante lecturas desde teclado.
+
+                if (tecla.Key == ConsoleKey.RightArrow) // Si se presionó la tecla derecha.
+                    _direccion = Direccion.Derecha;
+                if (tecla.Key == ConsoleKey.LeftArrow) // Si se presionó la tecla izquierda.
+                    _direccion = Direccion.Izquierda;
+                if (tecla.Key == ConsoleKey.UpArrow) // Si se presionó la tecla de arriba.
+                    _direccion = Direccion.Arriba;
+                if (tecla.Key == ConsoleKey.DownArrow) // Si se presionó la tecla de abajo.
+                    _direccion = Direccion.Abajo;
+            }
         }
     }
 }
