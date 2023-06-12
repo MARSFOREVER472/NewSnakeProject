@@ -86,6 +86,10 @@ namespace NewSnakeProj
                     break;
             }
 
+            // Llamaremos al método para que la serpiente pueda chocar con alguna parte dentro del marco.
+
+            ColisionesMarco();
+
             // Definidos ya las posiciones moveremos la cabeza de la serpiente.
 
             Console.SetCursorPosition(Head.X, Head.Y);
@@ -127,6 +131,20 @@ namespace NewSnakeProj
                 if (tecla.Key == ConsoleKey.DownArrow && (_direccion != Direccion.Arriba)) // Si se presionó la tecla de abajo pero que no se puede girar desde arriba.
                     _direccion = Direccion.Abajo;
             }
+        }
+
+        // Crearemos un nuevo método para evitar que la serpiente no sobrepase por el marco del juego..
+
+        private void ColisionesMarco()
+        {
+            if (Head.X <= Window.LimiteSuperior.X) // Para que la serpiente choque hacia el lado izquierdo del marco según sus coordenadas en x.
+                Head = new Point(Window.LimiteInferior.X - 1, Head.Y); // Moveremos la cabeza de la serpiente hacia el lado derecho.
+            if (Head.X >= Window.LimiteInferior.X) // Para que la serpiente choque hacia el lado derecho del marco según sus coordenadas en x.
+                Head = new Point(Window.LimiteSuperior.X + 1, Head.Y); // Moveremos la cabeza de la serpiente hacia el lado izquierdo.
+            if (Head.Y <= Window.LimiteSuperior.Y) // Para que la serpiente choque hacia la parte del marco superior según sus coordenadas en y.
+                Head = new Point(Head.X, Window.LimiteInferior.Y - 1); // Moveremos la cabeza de la serpiente hacia la parte inferior.
+            if (Head.Y >= Window.LimiteInferior.Y) // Para que la serpiente choque hacia la parte del marco inferior según sus coordenadas en y.
+                Head = new Point(Head.X, Window.LimiteSuperior.Y + 1); // Moveremos la cabeza de la serpiente hacia la parte superior.
         }
     }
 }
