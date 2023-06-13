@@ -12,7 +12,7 @@ void Iniciar()
     new Point(5, 3), new Point(59, 18));
     ventana.DibujarMarco();
     comida = new Comida(ConsoleColor.DarkGray, ventana);
-    snake = new Snake(new Point(8, 5), ConsoleColor.DarkRed, ConsoleColor.Red, ventana);
+    snake = new Snake(new Point(8, 5), ConsoleColor.DarkRed, ConsoleColor.Red, ventana, comida);
     snake.IniciarCuerpo(2);
 
     comida.GenerarComida(); // Con ese método siempre se debe dejar público.

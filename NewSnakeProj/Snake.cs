@@ -20,19 +20,20 @@ namespace NewSnakeProj
         public Ventana Window { get; set; } // Ventana de la consola.
         public List<Point> Body { get; set; } // cuerpo de la serpiente.
         public Point Head { get; set; } // Cabeza de la serpiente.
+        public Comida Food { get; set; } // Comida de la serpiente.
         private Direccion _direccion; // Dirección de la serpiente.
 
         // Crearemos un constructor con sus respectivos parámetros para la clase Snake
 
         public Snake(Point posicion, ConsoleColor colorCabeza, ConsoleColor colorCuerpo,
-            Ventana ventana)
+            Ventana ventana, Comida comida)
         {
             HeadColor = colorCabeza; // Color de cabeza.
             BodyColor = colorCuerpo; // Color de cuerpo.
             Window = ventana; // Ventana de la consola.
             Head = posicion; // Posición de la cabeza.
             Body = new List<Point>(); // Cuerpo definido según crecimiento de la serpiente.
-
+            Food = comida; // Comida.
             _direccion = Direccion.Derecha; // Se mueve hacia la derecha.
         }
 
@@ -57,7 +58,8 @@ namespace NewSnakeProj
             Teclado(); // Lectura de direcciones de la serpiente desde teclado.
             Point posCabezaAnterior = Head; // Posicionaremos la cabeza inicial de la serpiente.
             MoverCabeza(); // Movimiento de la cabeza de la serpiente.
-            MoverCuerpo(posCabezaAnterior);
+            MoverCuerpo(posCabezaAnterior); // Movimiento del cuerpo de la serpiente.
+            ColisionesComida(); // Colisión hacia la comida de la serpiente.
         }
 
         // Crearemos un nuevo método que permita mover la cabeza de la serpiente.
@@ -110,6 +112,16 @@ namespace NewSnakeProj
             Console.SetCursorPosition(Body[Body.Count - 1].X, Body[Body.Count - 1].Y);
             Console.WriteLine(" "); // Para evitar los rastros que dejó la serpiente en la consola.
             Body.Remove(Body[Body.Count - 1]);
+        }
+
+        // Crearemos un método que permita que la serpiente colisione con la comida mediante acciones especiales.
+
+        private void ColisionesComida()
+        {
+            if (Head == Food.Posicion)
+            {
+                Food.GenerarComida();
+            }
         }
 
         // Crearemos un método que permita mover a la serpiente mediante lectura desde teclado.
