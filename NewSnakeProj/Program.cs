@@ -1,32 +1,34 @@
 ﻿using NewSnakeProj; // Importamos el namespace de la clase ventana.
 using System.Drawing;
 
-Ventana ventana;
-Snake snake;
-Comida comida;
-bool jugar = true;
+Ventana ventana; // Variable ventana.
+Snake snake; // Variable para la serpiente.
+Comida comida; // Variable para la comida.
+bool jugar = true; // Jugada disponible para su ejecución.
 
+// Método para inicializar el juego.
 void Iniciar()
 {
     ventana = new Ventana("Snake", 65, 20, ConsoleColor.DarkYellow, ConsoleColor.DarkGreen,
-    new Point(5, 3), new Point(59, 18));
+    new Point(5, 3), new Point(59, 18)); // Constructor para dibujar el marco en la consola.
     ventana.DibujarMarco();
-    comida = new Comida(ConsoleColor.DarkGray, ventana);
-    snake = new Snake(new Point(8, 5), ConsoleColor.DarkRed, ConsoleColor.Red, ventana, comida);
+    comida = new Comida(ConsoleColor.DarkGray, ventana); // Creación de la comida.
+    snake = new Snake(new Point(8, 5), ConsoleColor.DarkRed, ConsoleColor.Red, ventana, comida); // Creación de la serpiente.
     snake.IniciarCuerpo(2);
 
     comida.GenerarComida(); // Con ese método siempre se debe dejar público.
 }
 
+// Método para jugar.
 void Game()
 {
-    while (jugar)
+    while (jugar) // Mientras se ejecuta el juego.
     {
-        snake.Mover();
-        Thread.Sleep(100);
+        snake.Mover(); // Movimiento de la serpiente.
+        Thread.Sleep(100); // Duerme el programa durante 100 milisegundos mediante hilos de ejecución.
     }
 }
 
-Iniciar();
-Game();
-Console.ReadKey();
+Iniciar(); // Llamado del método al iniciar el programa.
+Game(); // Llamado del método al juego.
+Console.ReadKey(); // Se muestra la lectura de la consola al terminar su ejecución.
