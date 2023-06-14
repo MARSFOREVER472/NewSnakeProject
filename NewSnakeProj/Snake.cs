@@ -22,6 +22,7 @@ namespace NewSnakeProj
         public Point Head { get; set; } // Cabeza de la serpiente.
         public Comida Food { get; set; } // Comida de la serpiente.
         private Direccion _direccion; // Dirección de la serpiente.
+        private bool _eating; // Al momento de comer, éste dependerá lo que hace si se colisiona con la comida.
 
         // Crearemos un constructor con sus respectivos parámetros para la clase Snake
 
@@ -107,6 +108,14 @@ namespace NewSnakeProj
             Console.WriteLine("▓"); // Alt 178 (para evitar los rastros que dejó la serpiente en la consola).
             Body.Insert(0, posCabezaAnterior);
 
+            // Ya no podrá hacer nada y se moverá el cuerpo al momento de comer.
+
+            if (_eating)
+            {
+                _eating = false;
+                return;
+            }
+
             // Ubicaremos el cursor mediante lista de arreglos.
 
             Console.SetCursorPosition(Body[Body.Count - 1].X, Body[Body.Count - 1].Y);
@@ -118,9 +127,10 @@ namespace NewSnakeProj
 
         private void ColisionesComida()
         {
-            if (Head == Food.Posicion)
+            if (Head == Food.Posicion) // Se posiciona automáticamente en cualquier parte donde se encuentra la comida.
             {
                 Food.GenerarComida();
+                _eating = true; // Va creciendo al comer.
             }
         }
 
