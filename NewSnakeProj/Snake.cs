@@ -13,7 +13,7 @@ namespace NewSnakeProj
         {
             Arriba, Abajo, Derecha, Izquierda
         }
-            
+
         public bool Vivo { get; set; } // vida de la serpiente.
         public ConsoleColor HeadColor { get; set; } // color de cabeza de la serpiente.
         public ConsoleColor BodyColor { get; set; } // color de cuerpo de la serpiente.
@@ -21,6 +21,8 @@ namespace NewSnakeProj
         public List<Point> Body { get; set; } // cuerpo de la serpiente.
         public Point Head { get; set; } // Cabeza de la serpiente.
         public Comida Food { get; set; } // Comida de la serpiente.
+        public int Puntaje { get; set; } // Puntaje del juego.
+        public int MaximoPuntaje { get; set; } // Puntaje récord.
         private Direccion _direccion; // Dirección de la serpiente.
         private bool _eating; // Al momento de comer, éste dependerá lo que hace si se colisiona con la comida.
 
@@ -35,6 +37,8 @@ namespace NewSnakeProj
             Head = posicion; // Posición de la cabeza.
             Body = new List<Point>(); // Cuerpo definido según crecimiento de la serpiente.
             Food = comida; // Comida.
+            Puntaje = 0; // Puntaje del juego.
+            MaximoPuntaje = 0; // Puntaje Máximo del juego.
             _direccion = Direccion.Derecha; // Se mueve hacia la derecha.
         }
 
@@ -61,6 +65,11 @@ namespace NewSnakeProj
             MoverCabeza(); // Movimiento de la cabeza de la serpiente.
             MoverCuerpo(posCabezaAnterior); // Movimiento del cuerpo de la serpiente.
             ColisionesComida(); // Colisión hacia la comida de la serpiente.
+            if (ColisionesCuerpo()) // Para las colisiones con el cuerpo se debe verificar con una condición mediante un bool hacia el mismo método.
+            {
+                Muerte(); // La serpiente murió.
+                Environment.Exit(0); // Finaliza la ejecución con éxito sin errores.
+            }
         }
 
         // Crearemos un nuevo método que permita mover la cabeza de la serpiente.
@@ -129,8 +138,16 @@ namespace NewSnakeProj
         {
             if (Head == Food.Posicion) // Se posiciona automáticamente en cualquier parte donde se encuentra la comida.
             {
-                Food.GenerarComida();
+                if (!Food.GenerarComida(this)) // Si es que no habrá suficiente espacio para generar comida.
+                {
+                    Vivo = false;
+                    Environment.Exit(0);
+                }
                 _eating = true; // Va creciendo al comer.
+                Puntaje++; // Al comer incrementa el valor de su puntaje.
+
+                if (Puntaje > MaximoPuntaje) // Si el puntaje máximo es mayor que su puntaje actual.
+                    MaximoPuntaje = Puntaje; // Esto se reemplazará por un puntaje récord si es que esta condición se cumple.
             }
         }
 
@@ -167,6 +184,48 @@ namespace NewSnakeProj
                 Head = new Point(Head.X, Window.LimiteInferior.Y - 1); // Moveremos la cabeza de la serpiente hacia la parte inferior.
             if (Head.Y >= Window.LimiteInferior.Y) // Para que la serpiente choque hacia la parte del marco inferior según sus coordenadas en y.
                 Head = new Point(Head.X, Window.LimiteSuperior.Y + 1); // Moveremos la cabeza de la serpiente hacia la parte superior.
+        }
+
+        // Crearemos un método privado que permita realizar acciones al colisionar su cuerpo.
+
+        private bool ColisionesCuerpo()
+        {
+            foreach (Point item in Body) // Partes del cuerpo mediante foreach.
+            {
+                if (Head == item) // Si la cabeza es igual a la posición de su cuerpo.
+                {
+                    Vivo = false; // La serpiente ha muerto.
+                    return true; // Si la condición if se cumple.
+                }
+            }
+            return false; // Si es que el ciclo foreach no se cumple.
+        }
+
+        // Crearemos un método para que la serpiente se muera fácilmente.
+
+        public void Muerte()
+        {
+            Console.ForegroundColor = BodyColor;
+            foreach (Point item in Body)
+            {
+                if (item == Head)
+                    continue;
+                Console.SetCursorPosition(item.X, item.Y); // Ubicaremos la posición de su cuerpo cuando la serpiente se muera.
+                Console.Write("░"); // ALT 176
+                Thread.Sleep(120); // Dormiremos el programa mediante hilos de ejecución con un tiempo determinado.
+            }
+        }
+
+        // Crearemos un método que muestre toda la información del juego.
+        public void Informacion(int distanciaX1, int distanciaX2)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed; // El color de letra es Rojo Oscuro.
+            Console.SetCursorPosition(Window.LimiteSuperior.X + distanciaX1, Window.LimiteSuperior.Y - 1); // Información del puntaje.
+            Console.Write("Puntaje: " + Puntaje + "  ");
+            Console.SetCursorPosition(Window.LimiteSuperior.X + distanciaX2, Window.LimiteSuperior.Y - 1); // Información del puntaje máximo.
+            Console.Write("Puntaje Máximo: " + MaximoPuntaje + "  ");
+
+
         }
     }
 }

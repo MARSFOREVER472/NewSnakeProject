@@ -9,13 +9,14 @@ namespace NewSnakeProj
 {
     internal class Ventana
     {
-        public string Title { get; set; } // Titulo del juego
-        public int Width { get; set; } // Ancho de la ventana
-        public int Height { get; set; } // Altura de la ventana
-        public ConsoleColor BackgroundColor { get; set; } // Color de fondo del juego
-        public ConsoleColor TextColor { get; set; } // Color de texto del juego
-        public Point LimiteSuperior { get; set; } // Límite superior del marco de la consola
-        public Point LimiteInferior { get; set; } // Límite inferior del marco de la consola
+        public string Title { get; set; } // Titulo del juego.
+        public int Width { get; set; } // Ancho de la ventana.
+        public int Height { get; set; } // Altura de la ventana.
+        public ConsoleColor BackgroundColor { get; set; } // Color de fondo del juego.
+        public ConsoleColor TextColor { get; set; } // Color de texto del juego.
+        public Point LimiteSuperior { get; set; } // Límite superior del marco de la consola.
+        public Point LimiteInferior { get; set; } // Límite inferior del marco de la consola.
+        public int Area { get; set; } // Área de la consola.
 
         // Crearemos un constructor para la clase Ventana.
 
@@ -30,6 +31,7 @@ namespace NewSnakeProj
             TextColor = colorLetra; // Color de texto
             LimiteSuperior = limiteSuperior; // Límite superior
             LimiteInferior = limiteInferior; // Límite inferior
+            Area = ((LimiteInferior.X - LimiteSuperior.X) - 1) * ((LimiteInferior.Y - LimiteSuperior.Y) - 1); // Se calcula multiplicando los límites superior e inferior del marco del juego.
             Init(); // Llama al constructor a todas las variables del juego.
         }
 

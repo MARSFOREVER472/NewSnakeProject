@@ -35,13 +35,29 @@ namespace NewSnakeProj
 
         // Crearemos un nuevo método que permita generar una comida para la serpiente y llamaremos al método anterior para su posterior ejecución.
 
-        public void GenerarComida()
+        public bool GenerarComida(Snake snake)
         {
+            int longitudSnake = snake.Body.Count + 1; // Incrementa la longitud del cuerpo de la serpiente mediante una lista de arreglos.
+
+            if ((Window.Area - longitudSnake) <= 0) // Verifica si es que no hay espacio suficiente para seguir creciendo al comer.
+                return false;
+
             Random random = new Random(); // Crearemos una variable de tipo Random.
             int x = random.Next(Window.LimiteSuperior.X + 1, Window.LimiteInferior.X); // Para la coordenada en X.
             int y = random.Next(Window.LimiteSuperior.Y + 1, Window.LimiteInferior.Y); // Para la coordenada en Y.
             Posicion = new Point(x, y); // Ubicaremos la posición dependiendo de la coordenada en el punto x,y.
+
+            foreach (Point item in snake.Body) // Con este ciclo recorremos todo el cuerpo de la serpiente.
+            {
+                if((x == item.X && y == item.Y) ||
+                    (x == snake.Head.X && y == snake.Head.Y))
+                {
+                    if (GenerarComida(snake))
+                        return true; // Si se generó la comida de la serpiente.
+                }
+            }
             Dibujar(); // Llamado del método anterior.
+            return true; // Retorna verdadero si es que se cumple con el ciclo anterior.
         }
 
     }

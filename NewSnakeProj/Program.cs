@@ -1,5 +1,5 @@
 ﻿using NewSnakeProj; // Importamos el namespace de la clase ventana.
-using System.Drawing;
+using System.Drawing; // Importamos la librería para la consola al dibujarla.
 
 Ventana ventana; // Variable ventana.
 Snake snake; // Variable para la serpiente.
@@ -16,7 +16,7 @@ void Iniciar()
     snake = new Snake(new Point(8, 5), ConsoleColor.DarkRed, ConsoleColor.Red, ventana, comida); // Creación de la serpiente.
     snake.IniciarCuerpo(2);
 
-    comida.GenerarComida(); // Con ese método siempre se debe dejar público.
+    comida.GenerarComida(snake); // Con ese método siempre se debe dejar público.
 }
 
 // Método para jugar.
@@ -24,8 +24,9 @@ void Game()
 {
     while (jugar) // Mientras se ejecuta el juego.
     {
+        snake.Informacion(0, 34); // Información de la serpiente.
         snake.Mover(); // Movimiento de la serpiente.
-        Thread.Sleep(100); // Duerme el programa durante 100 milisegundos mediante hilos de ejecución.
+        Thread.Sleep(50); // Duerme el programa durante 50 milisegundos mediante hilos de ejecución.
     }
 }
 
