@@ -79,5 +79,43 @@ namespace NewSnakeProj
             Console.SetCursorPosition(LimiteInferior.X, LimiteInferior.Y); // Parte inferior derecho del marco.
             Console.Write("╝"); // ALT + 188
         }
+
+        // Crearemos un nuevo método que visualice la ventana para el menú del juego.
+
+        public void Maingame()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkBlue; // El color de letra es azul oscuro.
+            Console.SetCursorPosition(LimiteSuperior.X + (LimiteInferior.X / 2) - 12,
+                LimiteSuperior.Y + (LimiteInferior.Y / 2) - 4); // Ubicaremos el cursor en el centro del marco del menú principal.
+            Console.Write("S N A K E   G A M E"); // Título del juego.
+            Console.SetCursorPosition(LimiteSuperior.X + (LimiteInferior.X / 2) - 8,
+                LimiteSuperior.Y + (LimiteInferior.Y / 2) - 2); // Para ir a jugar.
+            Console.Write("Enter - JUGAR"); // Botón ENTER para jugar.
+            Console.SetCursorPosition(LimiteSuperior.X + (LimiteInferior.X / 2) - 8,
+                LimiteSuperior.Y + (LimiteInferior.Y / 2) - 1); // Para salir del juego.
+            Console.Write("ESC - SALIR"); // Botón Esc para salir.
+        }
+
+        // Crearemos un nuevo método que permita al menú leer botones desde teclado.
+
+        public void Teclado(ref bool ejecutar, ref bool jugar)
+        {
+            if (Console.KeyAvailable) // Si se logró presionar una tecla mediante lectura.
+            {
+                ConsoleKeyInfo tecla = Console.ReadKey(true);
+                if (tecla.Key == ConsoleKey.Enter) // Si se presionó la tecla ENTER.
+                {
+                    jugar = true; // Para ir a jugar.
+                    Console.Clear();
+                    DibujarMarco();
+                }
+
+                if (tecla.Key == ConsoleKey.Escape) // Si se presionó la tecla ESC.
+                {
+                    ejecutar = false; // Salimos del juego.
+                }
+                    
+            }
+        }
     }
 }
