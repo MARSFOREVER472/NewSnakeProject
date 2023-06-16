@@ -17,6 +17,7 @@ namespace NewSnakeProj
         public Point LimiteSuperior { get; set; } // Límite superior del marco de la consola.
         public Point LimiteInferior { get; set; } // Límite inferior del marco de la consola.
         public int Area { get; set; } // Área de la consola.
+        public Snake SnakeMain { get; set; } // Serpiente adicional para el menú.
 
         // Crearemos un constructor para la clase Ventana.
 
@@ -44,6 +45,9 @@ namespace NewSnakeProj
             Console.CursorVisible = false; // En el caso de que el cursor no se visualice en la consola.
             Console.BackgroundColor = BackgroundColor; // Para personalizar el color de fondo de la consola.
             Console.Clear(); // Limpia toda la consola al ejecutarse.
+            SnakeMain = new Snake(new Point(LimiteInferior.X / 2, LimiteInferior.Y - 3),
+                ConsoleColor.Magenta, ConsoleColor.White, this, null); // Nueva serpiente para el menú.
+            SnakeMain.IniciarCuerpo(4); // Iniciamos su cuerpo con 4 partes.
         }
 
         // Crearemos un nuevo método para dibujar el marco en la consola.
@@ -94,11 +98,13 @@ namespace NewSnakeProj
             Console.SetCursorPosition(LimiteSuperior.X + (LimiteInferior.X / 2) - 8,
                 LimiteSuperior.Y + (LimiteInferior.Y / 2) - 1); // Para salir del juego.
             Console.Write("ESC - SALIR"); // Botón Esc para salir.
+
+            SnakeMain.MoverMenu(); // Se apreciará la nueva serpiente al menú.
         }
 
         // Crearemos un nuevo método que permita al menú leer botones desde teclado.
 
-        public void Teclado(ref bool ejecutar, ref bool jugar)
+        public void Teclado(ref bool ejecutar, ref bool jugar, Snake snake)
         {
             if (Console.KeyAvailable) // Si se logró presionar una tecla mediante lectura.
             {
@@ -108,6 +114,7 @@ namespace NewSnakeProj
                     jugar = true; // Para ir a jugar.
                     Console.Clear();
                     DibujarMarco();
+                    snake.Init();
                 }
 
                 if (tecla.Key == ConsoleKey.Escape) // Si se presionó la tecla ESC.
@@ -116,6 +123,21 @@ namespace NewSnakeProj
                 }
                     
             }
+        }
+
+        // Crearemos un nuevo método para terminar la partida al perder el juego.
+
+        public void GameOver(string text)
+        {
+            Console.Clear(); // Limpiaremos toda la consola para proseguir la ejecución.
+            DibujarMarco(); // Dibujaremos el marco del juego.
+            Console.ForegroundColor = ConsoleColor.DarkBlue;// Agregaremos un color para la alerta del juego.
+            Console.SetCursorPosition(LimiteSuperior.X + (LimiteInferior.X / 2) - 10,
+                LimiteSuperior.Y + (LimiteInferior.Y / 2) - 2); // Ubicaremos el cursor en el centro del marco del juego.
+            Console.Write(text); // Pasaremos el texto automáticamente.
+            Thread.Sleep(3000); // Dormiremos el programa durante 3000 milisegundos.
+            Console.Clear(); // Limpiamos nuevamente.
+            DibujarMarco(); // Dibujamos nuevamente el marco del juego.
         }
     }
 }

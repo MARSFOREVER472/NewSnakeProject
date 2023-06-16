@@ -23,6 +23,8 @@ namespace NewSnakeProj
         public Comida Food { get; set; } // Comida de la serpiente.
         public int Puntaje { get; set; } // Puntaje del juego.
         public int MaximoPuntaje { get; set; } // Puntaje récord.
+        public Point PosInicial { get; set; } // Posición inicial de la cabeza de la serpiente.
+
         private Direccion _direccion; // Dirección de la serpiente.
         private bool _eating; // Al momento de comer, éste dependerá lo que hace si se colisiona con la comida.
 
@@ -39,7 +41,20 @@ namespace NewSnakeProj
             Food = comida; // Comida.
             Puntaje = 0; // Puntaje del juego.
             MaximoPuntaje = 0; // Puntaje Máximo del juego.
+            PosInicial = posicion; // Posición Inicial desde la cabeza de la serpiente.
             _direccion = Direccion.Derecha; // Se mueve hacia la derecha.
+        }
+
+        // Crearemos un nuevo método para inicializar el juego.
+
+        public void Init()
+        {
+            Body.Clear(); // Limpiaremos todo el cuerpo de la serpiente y dejamos sólo su cabeza.
+            Head = PosInicial; // Ubicaremos la posición hacia su cabeza.
+            IniciarCuerpo(2); // Crearemos 2 partes al cuerpo de la serpiente.
+            Vivo = true; // Mientras se ejecuta el juego.
+            _direccion = Direccion.Derecha; // La serpiente se mueve inicialmente hacia la derecha.
+            Food.GenerarComida(this); // Generaremos su comida para la serpiente.
         }
 
         // Crearemos un nuevo método para que la serpiente tenga su cuerpo con sus partes.
@@ -68,7 +83,7 @@ namespace NewSnakeProj
             if (ColisionesCuerpo()) // Para las colisiones con el cuerpo se debe verificar con una condición mediante un bool hacia el mismo método.
             {
                 Muerte(); // La serpiente murió.
-                Environment.Exit(0); // Finaliza la ejecución con éxito sin errores.
+                Window.GameOver(" G A M E  O V E R "); // Finaliza la ejecución con éxito sin errores.
             }
         }
 
@@ -141,7 +156,7 @@ namespace NewSnakeProj
                 if (!Food.GenerarComida(this)) // Si es que no habrá suficiente espacio para generar comida.
                 {
                     Vivo = false;
-                    Environment.Exit(0);
+                    Window.GameOver(" G A M E  O V E R "); // Finaliza la ejecución con éxito.
                 }
                 _eating = true; // Va creciendo al comer.
                 Puntaje++; // Al comer incrementa el valor de su puntaje.
@@ -224,8 +239,15 @@ namespace NewSnakeProj
             Console.Write("Puntaje: " + Puntaje + "  ");
             Console.SetCursorPosition(Window.LimiteSuperior.X + distanciaX2, Window.LimiteSuperior.Y - 1); // Información del puntaje máximo.
             Console.Write("Puntaje Máximo: " + MaximoPuntaje + "  ");
+        }
 
-
+        // Crearemos un nuevo método para que la serpiente pueda mover en el menú.
+        public void MoverMenu()
+        {
+            _direccion = Direccion.Derecha; // Se mueve hacia la derecha inicialmente al igual que en el juego.
+            Point posCabezaAnterior = Head; // Capturamos la cabeza inicialmente antes de su cuerpo.
+            MoverCabeza(); // Moveremos su cabeza.
+            MoverCuerpo(posCabezaAnterior); // Moveremos su cuerpo.
         }
     }
 }
